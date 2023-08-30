@@ -17,7 +17,7 @@ armbian支持 docker环境编译，执行脚本后提示我们目前是docker环
 
 ## 2. 选择是否更改kernel config
 
-图片：armbian-choose-an-option.png
+![armbian-choose-an-option](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-choose-an-option.png)
 
 此时可看到两个选择
 
@@ -31,7 +31,7 @@ armbian支持 docker环境编译，执行脚本后提示我们目前是docker环
 
 ## 3. 选择目标
 
-图片：armbian-select-target-board.png
+![armbian-select-target-board](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-select-target-board.png)
 
 大家下载下来的 armbian/build 应该是没有armsom-w3 和 armsom-p2pro, 是我们这边开发使用暂时没有合并提交到armbian官方仓库,后续会提交。
 
@@ -48,7 +48,7 @@ armbian支持 docker环境编译，执行脚本后提示我们目前是docker环
 
 ## 4. 选择要使用什么kernel版本
 
-图片：armbian-exact-kernel.png
+![armbian-exact-kernel](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-exact-kernel.png)
 
 如上我们可以看到Legacy版本，edge版本，midstream版本，collabora版本
 
@@ -63,7 +63,7 @@ armbian支持 docker环境编译，执行脚本后提示我们目前是docker环
 
 ## 5. 选择目标操作系统
 
-图片：armbian-select-os.png
+![armbian-select-os](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-select-os.png)
 
 如上我们可以看到
 
@@ -75,7 +75,7 @@ armbian支持 docker环境编译，执行脚本后提示我们目前是docker环
 
 ## 6. 选择目标系统类型（是否带桌面系统）
 
-图片：armbian-select-os-type.png
+![armbian-select-os-type](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-select-os-type.png)
 
 Image with console interface (server版本)
 Image with desktop environment 桌面版本
@@ -85,7 +85,7 @@ Image with desktop environment 桌面版本
 ### 6.1 选择目标系统带桌面版本
 假如选择desktop版本将会进入
 
-图片: armbian-select-desktop-environment.png
+![armbian-select-desktop-environment](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-select-desktop-environment.png)
 
 cinnamon [Cinnamon desktopp environment](https://github.com/linuxmint/Cinnamon):
 
@@ -110,13 +110,13 @@ xfce [Xfce desktop enviroment](https://www.xfce.org/)
 
 我们偏好采用 gnome desktop，纯属个人喜好。
 
-图片: armbian-select-desktop-software.png
+![armbian-select-desktop-software](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-select-desktop-software.png)
 
 之后会要求选择我们需要安装的软件，根据自己喜好选择，可多选。
 
 ### 6.2 选择目标系统server版本
 
-图片: armbian-select-server-environment.png
+![armbian-select-server-environment](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-select-server-environment.png)
 
 Standard image with console interface：标准server版本
 
