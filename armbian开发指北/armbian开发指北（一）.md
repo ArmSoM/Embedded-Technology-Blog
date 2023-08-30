@@ -5,7 +5,7 @@ Armbian是一个基于Debian或Ubuntu的开源操作系统，专门针对嵌入�
 
 [armbian](https://www.armbian.com/)立项于2014年底，于2016年开始进入频繁更新，每年千万行代码的爆发式成长，截止目前为止，官网已经支持185个不同的硬件设备的适配。
 
-图片：armbian-office-web
+![armbian-office-web]([https://octodex.github.com/images/minion.png](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armbian-office-web.png))
 
 ## 2. 为什么要使用armbian
 
