@@ -39,7 +39,7 @@
 
   
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5bee2dad5bd74e1da6a01de9de698575.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-CameraDebugging-RK3588-camera-channel.png)
 
 
 
@@ -50,7 +50,7 @@
 
 # 4、 Linkage Analysis：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2a6dbb216da54372b2053e4a20361a30.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-CameraDebugging-RK3588-camera-channel-single.png)
 
 
 - In the picture：mipi camera2---> <font color="red" size="3">csi2_dphy1</font> ---> mipi2_csi2 ---> rkcif_mipi_lvds2--->rkcif_mipi_lvds2_sditf --->rkisp0_vir2
@@ -71,7 +71,7 @@
 
 # 5、RK3588 Hardware Signal Path Block Diagram
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/0e0399d5b8ae463e904e84d37ce1d1e0.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-CameraDebugging-Hardware-path-block-diagram.png)
 
 - RK3588 supports 2 ISP hardware units. Each ISP device can virtualize multiple virtual nodes. The software sequentially reads the image data of each path from DDR into the ISP for processing in a read-back manner.
 
