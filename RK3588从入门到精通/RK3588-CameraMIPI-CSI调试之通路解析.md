@@ -10,7 +10,8 @@
 - CSI & DSI
 
 	 • <font color="red" size="3">CSI </font>( Camera Serial Interface )：摄像头接口
-	 
+	
+
  	 • <font color="red" size="3">DSI</font> ( Display Serial Interface )：显示接口
 # 二、 名词解释：
 
@@ -28,7 +29,7 @@
 
 **下图是RK3588 camera连接链路示意图，可以支持7路camera。**
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/5bee2dad5bd74e1da6a01de9de698575.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-CameraDebugging-RK3588-camera-channel.png)
 
 
 
@@ -38,7 +39,7 @@
 
 
 # 四、 链路解析：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2a6dbb216da54372b2053e4a20361a30.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-CameraDebugging-RK3588-camera-channel-single.png)
 
 
 - 图中：mipi camera2---> <font color="red" size="3">csi2_dphy1</font> ---> mipi2_csi2 ---> rkcif_mipi_lvds2--->rkcif_mipi_lvds2_sditf --->rkisp0_vir2
@@ -53,11 +54,11 @@
 
 	<font color="red" size="3">每个vicap节点与isp的链接关系，通过对应虚拟出的XXX_sditf来指明链接关系。</font>
 	
-
+	
 	
 
 # 五、RK3588硬件通路框图
-![在这里插入图片描述](https://img-blog.csdnimg.cn/0e0399d5b8ae463e904e84d37ce1d1e0.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-CameraDebugging-Hardware-path-block-diagram.png)
 - rk3588支持2个isp硬件，每个isp设备可虚拟出多个虚拟节点，软件上通过回读的方式，依次从ddr读取每一路的图像数据进isp处理。对于多摄方案，建议将数据流平均分配到两个isp上。
 
 - 回读：指数据经过vicap采集到ddr，应用获取到数据后，将buffer地址推送给isp，isp再从ddr获取图像数据。
@@ -99,7 +100,7 @@ rk3588支持两个dcphy，节点名称分别为csi2_dcphy0/csi2_dcphy1。每个d
 8. rk3588支持2个isp硬件，每个isp设备可虚拟出多个虚拟节点，软件上通过回读的方式，依次从ddr读取每一路的图像数据进isp处理。对于多摄方案，建议将数据流平均分配到两个isp上。
 
 9. 直通与回读模式：
-•直通：指数据经过vicap采集，直接发送给isp处理，不存储到ddr。需要注意的是hdr直通时，只有短帧是真正的直通，长帧需要存在ddr，isp再从ddr读取。
+	•直通：指数据经过vicap采集，直接发送给isp处理，不存储到ddr。需要注意的是hdr直通时，只有短帧是真正的直通，长帧需要存在ddr，isp再从ddr读取。
 
 	•回读：指数据经过vicap采集到ddr，应用获取到数据后，将buffer地址推送给isp，isp再从ddr获取图像数据。
 
