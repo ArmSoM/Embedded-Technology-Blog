@@ -21,7 +21,7 @@
 
 ## Signal Timing 
 
-![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-MIPI-Panel-Debugging-RK3588-MIPI-DSI-Pane.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/RK3588-MIPI-Panel-Debugging-RK3588-MIPI-DSI-Panel-Configuration.png)
 
 - DTS Configuration：
 
