@@ -19,7 +19,7 @@ PCIe接口是一种计算机硬件连接标准，它提供了高速、高性能�
 
 PCIe 分类、速度，按lane的个数分有 x1 x2 x4 x8 x16 （最大可支持32个通道），按代来分 有 gen1 gen2 gen3 gen4
 
-![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/11111.png)
+![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_1.png)
 
 PCIe gen1 和 PCIe gen2 采用的编解码方式是 8b/10b，PCIe gen3 和 之后的 采用的是 128b/130b 的编码方式。
 
@@ -50,7 +50,7 @@ PCIe gen3 x1 传输速率 8GT/s = 8000MT/s = ( 8000 / 130 ) x ( 128/8 ) MB/s= 98
 
 RK3588共有5个PCIe的控制器，硬件IP是⼀样的，配置不⼀样，其中⼀个4Lane DM模式可以⽀持作为EP使⽤，另外⼀个2Lane和3个1Lane控制器均只能作为RC使⽤。RK3588有两种PCIe PHY，其中⼀种为pcie3.0PHY，含2个Port共4个Lane，另⼀种是pcie2.0的PHY有3个，每个都是2.0 1Lane，跟SATA和USB combo使⽤。pcie3.0 PHY的4Lane可以根据实际需求拆分使⽤，拆分后需要合理配置对应的控制器。
 
-![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/22222.png)
+![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_2.png)
 
 ## 3.2 kernel dts解析之PCIe
 
@@ -88,25 +88,25 @@ RK3588共有5个PCIe的控制器，硬件IP是⼀样的，配置不⼀样，其�
 
 Armsom-W3开发板上有 1 个 PCIe3.0 x 4 接口和一个PCIe2.0接口，如图
 
-<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/510d9be7a132939c467d8e6c2b849f9.jpg" style="zoom: 33%;" />
+<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_11.jpg" style="zoom: 33%;" />
 
-<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/d3d1a0e7f10edae263aaa714eba2f5c.jpg" style="zoom: 33%;" />
+<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PICE_22.jpg" style="zoom: 33%;" />
 
 可以插入对应模组使用, 如图：
 
-<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/bb6fded2105e2cfa01697318f91c1eb.jpg" style="zoom:25%;" />
+<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_33.jpg" style="zoom:25%;" />
 
-<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/4b8ae19d27157e1e77bcfa2ccda51c5.jpg" style="zoom: 33%;" />
+<img src="https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_44.jpg" style="zoom: 33%;" />
 
 ## 4.2 硬件设计
 
 PCIe3.0 x 4 接口：
 
-![](C:\Users\Administrator\Desktop\撰写文档\csdn\md文档\RK3588从入门到精通\RK3588平台驱动调试篇 [ PCIE篇 ] - PCIE的开发指南\333333.png)
+![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_3.png)
 
 PCIe2.0接口：
 
-![](C:\Users\Administrator\Desktop\撰写文档\csdn\md文档\RK3588从入门到精通\RK3588平台驱动调试篇 [ PCIE篇 ] - PCIE的开发指南\44444.png)
+![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_4.png)
 
 ## 4.3 软件配置
 
@@ -196,7 +196,7 @@ vcc3v3_pcie2x1l0、vcc3v3_pcie30：供电引脚节点
 ## 4.4 其他PCIE配置的实例
 
 RK3588的控制器和PHY较多，按配置要点进⾏配置即可，这⾥还有⼏个典型范例供参考：
-![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/55555.png)
+![](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/PCIE/PCIE_5.png)
 
 ## 4.4.1 ⽰例1 pcie3.0phy拆分2个2Lane RC, 3个PCIe 2.0 1Lane
 
