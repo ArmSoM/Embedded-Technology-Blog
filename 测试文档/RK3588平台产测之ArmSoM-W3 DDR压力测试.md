@@ -48,7 +48,7 @@ OS：ArmSoM-W3 Debian11
 
 - DDR压力测试开始：![在这里插入图片描述](https://img-blog.csdnimg.cn/a0c4025e5de843ce8506b08537c7bdc1.png)
 
-	![在这里插入图片描述](https://img-blog.csdnimg.cn/f8e83fa157ef4480966cf46c53df57c7.jpeg#pic_left =600x)
-![在这里插入图片描述](https://img-blog.csdnimg.cn/dc53a2ab3b2b480c9b3b873608e0fb52.jpeg#pic_left =600x)
+	![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test1.jpg)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test2.jpg)
 ## ArmSoM 产品介绍： [http://wiki.armsom.org/index.php/ArmSoM-w3](http://wiki.armsom.org/index.php/ArmSoM-w3)
 ## ArmSoM 技术论坛： [http://forum.armsom.org/](http://forum.armsom.org/)
