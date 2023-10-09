@@ -11,9 +11,10 @@ ArmSoM-W3 RK3588开发板
 
 - 软件版本：
 OS：ArmSoM-W3 Debian11
-![在这里插入图片描述](https://img-blog.csdnimg.cn/69e7c5eda91649d7b8a4d17e6a564c4d.jpeg#pic_left =600x)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/armsom-w3-ddr-test.jpg#pic_left =600x)
 # 3. ArmSoM-W3 DDR压力测试方案
 **测试方案：同时对DDR进行三项压力测试：**
+
 - 使用memtester工具对DDR进行压力测试
 - 使用stressapptest工具对DDR进行压力测试
 - 使用RK官方测试脚本进行DDR变频测试
@@ -43,7 +44,7 @@ OS：ArmSoM-W3 Debian11
 	```c
 	root@linaro-alip:/rockchip-test# ./rockchip_test.sh
 	```
-	![在这里插入图片描述](https://img-blog.csdnimg.cn/820846db63904bc48aea608485872a70.png)
+	![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test.jpg)
 
 - DDR压力测试开始：![在这里插入图片描述](https://img-blog.csdnimg.cn/a0c4025e5de843ce8506b08537c7bdc1.png)
 

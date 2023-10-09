@@ -12,7 +12,7 @@
 -  在70℃高温环境中进行2000次电源拔插硬件重启测试
 -  在70℃高温环境中高强度运行24小时
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/e404be06a0e348838d05eaac08ecfa54.jpeg#pic_center =500x)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/High-temperature-test.jpeg#pic_left=500x)
 
 # 3. 70℃高温软件重启测试
 - 测试原理：ArmSoM-W3开发板放在70℃高温环境中进行2000次软件系统重启测试，观察开发板是否能够正常启动。
