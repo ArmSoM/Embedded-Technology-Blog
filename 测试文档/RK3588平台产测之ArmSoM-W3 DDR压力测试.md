@@ -11,7 +11,7 @@ ArmSoM-W3 RK3588开发板
 
 - 软件版本：
 OS：ArmSoM-W3 Debian11
-![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/armsom-w3-ddr-test.jpg#pic_left =600x)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/armsom-w3-ddr-test.jpg#pic_left=600x)
 # 3. ArmSoM-W3 DDR压力测试方案
 **测试方案：同时对DDR进行三项压力测试：**
 
