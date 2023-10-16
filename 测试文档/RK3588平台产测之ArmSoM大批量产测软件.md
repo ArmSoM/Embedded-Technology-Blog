@@ -4,7 +4,7 @@
 - 由ArmSoM团队研发的产测软件用于在量产的过程中快速地甄别产品功能和器件的好坏，即重点 FCT（Functional Test）测试，进而提高生产效率和检测的准确性。
 - ArmSoM团队的专业产测软件用来保证量产的每一部产品的质量以及稳定性
 - ArmSoM产测软件预览：
-![在这里插入图片描述](https://img-blog.csdnimg.cn/62c1cd8caa0645a2805a9cadc2d7cbbb.png)
+![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/armsom-test-image1.png)
 # 2. 环境介绍
 
 
@@ -49,6 +49,7 @@ OS：ArmSoM-W3 Debian11
 
 
 
-[video(video-RCHLuVin-1685618386502)(type-csdn)(url-https://live.csdn.net/v/embed/300962)(image-https://video-community.csdnimg.cn/vod-84deb4/fe6c5fc0006b71ee800a6632b68f0102/snapshots/06ff3808b5bf43d6aac2fa2e89b47466-00002.jpg?auth_key=4839217438-0-0-aef6dd367dfa649d4771ff056ee14ba1)(title-产测视频.)]
+[video(video-RCHLuVin-1685618386502)(type-csdn)(url-https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/armsom-test-video.mp4)(title-产测视频.)]
+
 ## ArmSoM 产品介绍： [http://wiki.armsom.org/index.php/ArmSoM-w3](http://wiki.armsom.org/index.php/ArmSoM-w3)
 ## ArmSoM 技术论坛： [http://forum.armsom.org/](http://forum.armsom.org/)
