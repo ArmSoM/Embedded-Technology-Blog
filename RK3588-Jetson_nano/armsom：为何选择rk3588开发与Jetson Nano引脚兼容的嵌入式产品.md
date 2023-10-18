@@ -22,12 +22,10 @@ Jetson Nano是NVIDIA公司推出的一款优秀的嵌入式计算平台，它在
 
 **如何实现与Jetson Nano引脚兼容**
 
-armsom研发团队对RK3588的开发积累了大量的经验，2022年已经开发量产过Jeston Nano形态的核心板，目前研发部已完成Jeston Nano引脚兼容的评估。
+armsom研发团队对RK3588的开发积累了大量的经验，2022年已经开发量产过Jeston Nano形态的核心板（如下图 armsom-3588-PCIE 产品），目前研发部已完成Jeston Nano引脚兼容的评估。
 完全兼容的同时，我们会针对RK3588的特性对PIN脚进行优化，复用。
 
 ![Armsom-RK3588M-PCIE-front](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/Jetson_nano/Armsom-RK3588M-PCIE-front.png)
-
-上图是我们的 armsom-3588-PCIE 产品
 
 **产品亮点：**
 
