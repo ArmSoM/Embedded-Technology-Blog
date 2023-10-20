@@ -1,4 +1,15 @@
-# 1. mpp解码流程解析
+# 1. 简介
+- mpi_dec_test 是rockchip官方解码 demo
+- 本篇文章进行mpi_dec_test 的代码解析，解码流程解析
+
+# 2. 环境介绍
+
+- 硬件环境：
+ArmSoM-W3 RK3588开发板
+
+- 软件版本：
+OS：ArmSoM-W3 Debian11
+# 3. mpp解码流程解析
 
 
 
@@ -13,7 +24,7 @@
 - mpi->reset：使解码器恢复为正常初始化后的状态。
 - mpp_destroy:释放申请的内存空间,做销毁善后工作
 
-# 2. 重要函数解析
+# 4. 重要函数解析
 ## mpp_init函数：初始化MppCtx 的编解码类型与格式
 
 **mpp_init函数原型：**
@@ -49,7 +60,7 @@ if (ret)
 	MPP_VIDEO_CodingMJPEG : MJPEG
 	```
 
-# 3. mpi_dec_test 流程解析
+# 5. mpi_dec_test 流程解析
 **mpi_dec_test 解码命令举例：**
 
 ```bash
@@ -67,7 +78,8 @@ main(  ) ---> dec_decode(  ) ---> thread_decode(  ) ---> dec_simple(  ) ---> mpp
 - 线程释放完毕之后执行<font color="red" size="3">reset</font>复位操作：<font color="red" size="3">mpi->reset(ctx)</font>把解码器恢复为正常初始化后的状态。
 - 解码器复位之后<font color="red" size="3">通过mpp_destroy()释放申请的内存空间</font>，进行一些销毁操作防止内存泄漏。
 
-# 4. mpi_dec_test使用实例
+# 6. mpi_dec_test使用实例
+
 终端执行解码命令：
 ```bash
 sudo mpi_dec_test -i /oem/200frames_count.h264 -t 7 -n 200 -o /oem/decode.yuv -w 1920 -h 1080
