@@ -59,13 +59,13 @@ OS: ArmSoM-W3 Debian11
 	root@linaro-alip:/rockchip-test# ./rockchip_test.sh
 	```
 
-	![DDR stress test selection](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test.jpg)
+	![DDR stress test process](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test-process.jpg)
 
 - DDR stress test begins: 
 
-	![DDR stress test selection](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test1.jpg)
-	![DDR stress test selection](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test2.jpg)
-	![DDR stress test selection](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test3.jpg)
+	![DDR stress test begins](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test-begins.png)
+	![DDR stress test desktop](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test-desktop.jpg)
+	![DDR stress test product](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/ddr-test-product.jpg)
 
 ## ArmSoM Product Introduction: [http://wiki.armsom.org/index.php/ArmSoM-w3](http://wiki.armsom.org/index.php/ArmSoM-w3)
 

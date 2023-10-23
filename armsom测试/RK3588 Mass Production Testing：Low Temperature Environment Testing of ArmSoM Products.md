@@ -29,7 +29,7 @@ OS: ArmSoM-W3 Debian11
 - 24 hours high load running in -20°C  low temperature environment
 
 
-![Low temperature test setup](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test.jpeg#pic_left=500x)
+![Low temperature test setup](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test-setup.jpeg#pic_left=500x)
 
 ## 4. -20°C Software Reboot Testing
 
@@ -48,7 +48,7 @@ OS: ArmSoM-W3 Debian11
 	
 - Test Results: There are  5 boards operated normally after  2000 software reboots completed.
 
-![Low temp software reboot test](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test1.jpeg#pic_left=600x)
+![Low temperature test results](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test-results.jpeg#pic_left=600x)
 
 ## 5. -20°C Hardware Power Cycle Reboot Test 
 
@@ -87,4 +87,4 @@ OS: ArmSoM-W3 Debian11
 	
 - Test Results: There are  5 boards operated normally after ran for 24 hrs at high load in -20°C .
 
-![24 hour low temp load test](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test2.jpeg#pic_left=600x)
+![24 hour low temp load test](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test-24h.jpeg#pic_left=600x)
