@@ -21,7 +21,7 @@
 
 - 测试结果：进行了3000次软件方式重启，5块开发板均运行正常。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/a93bdbf1595741b0967d12d18ce6bb00.jpeg#pic_center)
+![reboot-testing-software](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/reboot-testing-software.jpeg#pic_left=600x)
 
 # 4. 硬件重启3000次测试
 - 测试原理：对目标板进行3000次电源拔插测试，看开发板运行情况，是否能扛起3000次的连续硬件重启。
@@ -40,4 +40,4 @@
 
 - 测试结果：进行了3000次硬件断电源方式重启，开关机次数相差一两次在误差范围内，硬件重启测试未发现异常。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/43c632cbefc04ed88e2b4dd05588c843.jpeg#pic_center)
+![reboot-testing-hardware](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/reboot-testing-hardware.jpeg#pic_left=600x)

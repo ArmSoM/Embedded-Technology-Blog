@@ -24,7 +24,7 @@ OS：ArmSoM-W3 Debian11
 -  在-20℃低温环境中高强度运行24小时
 
 
-![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test.jpeg#pic_left=500x)
+![Low temperature test setup](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test-setup.jpeg#pic_left=500x)
 
 # 4. -20℃低温软件重启测试
 - 测试原理：ArmSoM-W3开发板放在-20℃低温环境中进行2000次软件系统重启测试，观察开发板是否能够正常启动。
@@ -41,8 +41,7 @@ OS：ArmSoM-W3 Debian11
 
 - 测试结果：进行了2000次软件方式重启，5块开发板均运行正常。
 
-![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test1.jpeg#pic_left=600x)
-
+![Low temperature test results](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test-results.jpeg#pic_left=600x)
 
 # 5. -20℃低温电源拔插硬件重启测试
 - 测试原理：ArmSoM-W3开发板放在-20℃低温环境中进行2000次电源拔插硬件重启测试，观察开发板启动是否异常。
@@ -75,4 +74,4 @@ OS：ArmSoM-W3 Debian11
 
 - 测试结果： 在-20℃低温高强度运行了24小时，5块开发板均运行正常。
 
-![在这里插入图片描述](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test2.jpeg#pic_left=600x)
+![24 hour low temp load test](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/armsom-test/Low-temperature-test-24h.jpeg#pic_left=600x)
