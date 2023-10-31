@@ -40,8 +40,8 @@ RK3576处理器是一款强大的处理器，具备出色的性能和多样化�
     * Secure boot / key ladder / OTP
     * Cipher engine (RSA, ECC, HASH, DES, AES, SHA, SM)
 
-![RK3567-Rockchip SoC Roadmap for AIOT](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/rk3576/RK3567-Rockchip SoC Roadmap for AIOT.png)
-![RK3576-series product comparison chart](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/rk3576/RK3576-series product comparison chart.png)
+![RK3567-Rockchip SoC Roadmap for AIOT](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/rk3576/RK3567-Rockchip-SoC-Roadmap-for-AIOT.png)
+![RK3576-series product comparison chart](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/rk3576/RK3576-series-product-comparison-chart.png)
 ## 应用场景
 
 ### EINK产品应用
