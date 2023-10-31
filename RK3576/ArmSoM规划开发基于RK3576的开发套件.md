@@ -1,10 +1,11 @@
-ArmSoM正计划推出一款新的产品，这款产品将采用强大的RK3576。
+ArmSoM正计划推出一款新的产品，这款产品将采用强大的RK3576芯片。
+
 本文将为您介绍我们的新产品搭载的RK3576性能参数，以及它如何为您提供卓越的性能和功能。
 
 ## RK3576处理器
 
 RK3576处理器是一款强大的处理器，具备出色的性能和多样化的功能，非常适合EINK产品，扫地机器人，云端产品，用于嵌入式系统和智能设备。它采用先进的制程工艺，拥有高性能的多核CPU和强大的图形处理单元，能够处理各种复杂任务，如图像处理、视频播放和音频处理。
-
+![RK3567-Rockchip SoC Roadmap for AIOT](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/rk3576/RK3567-Rockchip-SoC-Roadmap-for-AIOT.png)
 以下为RK3576芯片规格
 * CPU：Quad A72 + Quad A53 CPU
 * GPU：G52 MC3 @ 1GHz
@@ -40,7 +41,6 @@ RK3576处理器是一款强大的处理器，具备出色的性能和多样化�
     * Secure boot / key ladder / OTP
     * Cipher engine (RSA, ECC, HASH, DES, AES, SHA, SM)
 
-![RK3567-Rockchip SoC Roadmap for AIOT](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/rk3576/RK3567-Rockchip-SoC-Roadmap-for-AIOT.png)
 ![RK3576-series product comparison chart](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/rk3576/RK3576-series-product-comparison-chart.png)
 ## 应用场景
 
@@ -115,4 +115,4 @@ RK3576处理器是一款强大的处理器，具备出色的性能和多样化�
 * 满足不同产品需求成熟的Linux、Android SDK
 
 ## ArmSoM 产品规划
-基于以上优势，ArmSoM将研发一款接口丰富，小巧而强大的开发套件，产品框图后续将公布，请持续关注armsom官方账号。
+基于以上优势，ArmSoM将研发一款基于RK3576的开发套件，产品框图后续将公布，请持续关注armsom官方账号。
