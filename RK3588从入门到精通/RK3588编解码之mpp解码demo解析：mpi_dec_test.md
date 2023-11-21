@@ -1,0 +1,309 @@
+# 1. 简介
+- mpi_dec_test 是rockchip官方解码 demo
+- 本篇文章进行mpi_dec_test 的代码解析，解码流程解析
+
+# 2. 环境介绍
+
+- 硬件环境：
+ArmSoM-W3 RK3588开发板
+
+- 软件版本：
+OS：ArmSoM-W3 Debian11
+# 3. mpp解码流程解析
+
+
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/27dfa966953446019431ca9f7e5b7e62.png#pic_center)
+
+
+- mpp_create ：获取 MppCtx 实例以及 MppApi 结构体
+- mpp_init： 初始化MppCtx 的编解码类型与格式
+- mpi->control：通过相应的命令来配置解码参数
+- decode_put_packet：输入码流：编码数据 MppPacke，例如264、265数据
+- decode_get_frame： 获取解码的数据存放到MppFrame，例如YUV、RGB数据
+- mpi->reset：使解码器恢复为正常初始化后的状态。
+- mpp_destroy:释放申请的内存空间,做销毁善后工作
+
+# 4. 重要函数解析
+## mpp_init函数：初始化MppCtx 的编解码类型与格式
+
+**mpp_init函数原型：**
+
+```cpp
+MPP_RET mpp_init(MppCtx ctx, MppCtxType type, MppCodingType coding)
+```
+**mpp_init函数调用实例：**
+
+```cpp
+ret = mpp_init(ctx, MPP_CTX_DEC, MppCodingType::MPP_VIDEO_CodingAVC);
+if (ret)
+ {
+    mpp_err("mpp_init failed ret %d\n", ret);
+    goto MPP_TEST_OUT;
+ }
+```
+**mpp_init函数参数解析：**
+- MppCtxType 参数：初始化编码还是解码
+
+	```cpp
+	MPP_CTX_DEC ： 解码
+	MPP_CTX_ENC ： 编码
+	```
+
+- MppCodingType 参数：编解码的格式
+
+	```cpp
+	MPP_VIDEO_CodingAVC :   H.264
+	MPP_VIDEO_CodingHEVC:   H.265
+	MPP_VIDEO_CodingVP8 :   VP8
+	MPP_VIDEO_CodingVP9 :   VP9
+	MPP_VIDEO_CodingMJPEG : MJPEG
+	```
+
+# 5. mpi_dec_test 流程解析
+**mpi_dec_test 解码命令举例：**
+
+```bash
+sudo mpi_dec_test -i /oem/200frames_count.h264 -t 7 -n 200 -o /oem/decode.yuv -w 1920 -h 1080
+```
+**mpi_dec_test 流程解析：**
+```bash
+main(  ) ---> dec_decode(  ) ---> thread_decode(  ) ---> dec_simple(  ) ---> mpp_destroy(  )
+```
+- main函数根据传进来的参数<font color="red" size="3">（参数char **argv 对应命令中的 -i /oem/200frames_count.h264 -t 7 -n 200 -o /oem/decode.yuv -w 1920 -h 1080）</font>对参数进行解析保存到 <font color="red" size="3"> MpiDecTestCmd * cmd </font>结构体中
+- <font color="red" size="3"> dec_decode(cmd) </font>函数是封装好的解码函数，传入<font color="red" size="3"> MpiDecTestCmd * cmd</font> 结构体即可完成解码
+- <font color="red" size="3"> dec_decode</font> 函数执行了一些MPP的初始化操作：mpp_create() mpp_init()  ，mpp_dec_cfg_init() ， mpi->control。初始化之后创建解码线程：<font color="red" size="3"> thread_decode</font> 进行解码。
+- 解码线程：<font color="red" size="3"> thread_decode</font> 线程根据<font color="red" size="3"> cmd->simple</font> 变量判断是使用<font color="red" size="3"> dec_simple </font>解码还是<font color="red" size="3"> dec_advanced </font>解码
+- 解码完最后一帧之后执行<font color="red" size="3"> pthread_join()</font> 函数等待解码线程：<font color="red" size="3"> thread_decode</font> 结束后做线程释放工作
+- 线程释放完毕之后执行<font color="red" size="3">reset</font>复位操作：<font color="red" size="3">mpi->reset(ctx)</font>把解码器恢复为正常初始化后的状态。
+- 解码器复位之后<font color="red" size="3">通过mpp_destroy()释放申请的内存空间</font>，进行一些销毁操作防止内存泄漏。
+
+# 6. mpi_dec_test使用实例
+
+终端执行解码命令：
+```bash
+sudo mpi_dec_test -i /oem/200frames_count.h264 -t 7 -n 200 -o /oem/decode.yuv -w 1920 -h 1080
+```
+- 其中，-t 7 表示是输入 H.264 码流，-i 表示输入文件，-n 200 表示解码 200 帧 -w 图像宽度 -h 图像高度
+
+解码输出如下：
+```bash
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: input file /oem/200frames_count.h264 size 87402
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: cmd parse result:
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: input  file name: /oem/200frames_count.h264
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: output file name: /oem/decode.yuv
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: width      : 1920
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: height     : 1080
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: type       :    7
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_utils: max frames :  200
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: mpi_dec_test start
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpp_info: mpp version: 8a54ab8d author: xueman.ruan   2023-06-16 [h264d]: fix the derivation of mbaff.
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 mpi_dec_test decoder test start w 1920 h 1080 type 7
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode_get_frame get info changed found
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decoder require buffer w:h [640:480] stride [640:480] buf_size 614400
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 0
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 1
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 2
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 3
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 4
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 5
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 6
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 7
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 8
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 9
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 10
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 11
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 12
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 13
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 14
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 15
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 16
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 17
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 18
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 19
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 20
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 21
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 22
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 23
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 24
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 25
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 26
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 27
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 28
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 29
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 30
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 31
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 32
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 33
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 34
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 35
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 36
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 37
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 38
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 39
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 40
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 41
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 42
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 43
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 44
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 45
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 46
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 47
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 48
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 49
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 50
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 51
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 52
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 53
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 54
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 55
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 56
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 57
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 58
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 59
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 60
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 61
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 62
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 63
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 64
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 65
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 66
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 67
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 68
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 69
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 70
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 71
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 72
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 73
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 74
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 75
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 76
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 77
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 78
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 79
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 80
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 81
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 82
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 83
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 84
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 85
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 86
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 87
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 88
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 89
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 90
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 91
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 92
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 93
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 94
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 95
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 96
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 97
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 98
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 99
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 100
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 101
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 102
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 103
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 104
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 105
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 106
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 107
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 108
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 109
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 110
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 111
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 112
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 113
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 114
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 115
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 116
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 117
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 118
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 119
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 120
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 121
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 122
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 123
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 124
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 125
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 126
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 127
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 128
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 129
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 130
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 131
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 132
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 133
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 134
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 135
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 136
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 137
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 138
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 139
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 140
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 141
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 142
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 143
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 144
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 145
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 146
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 147
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 148
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 149
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 150
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 151
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 152
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 153
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 154
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 155
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 156
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 157
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 158
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 159
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 160
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 161
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 162
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 163
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 164
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 165
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 166
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 167
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 168
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 169
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 170
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 171
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 172
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 173
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 174
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 175
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 176
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 177
+Oct 18 12:26:06 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 178
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 179
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 180
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 181
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 182
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 183
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 184
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 185
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 186
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 187
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 188
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 189
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 190
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 191
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 192
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 193
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 194
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 195
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 loop again
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 196
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 197
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 198
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: 0x55aceed120 decode get frame 199
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: decode 200 frames time 328 ms delay   2 ms fps 609.30
+Oct 18 12:26:07 linaro-alip mpp[2150]: mpi_dec_test: test success max memory 5.86 MB
+
+
+```
