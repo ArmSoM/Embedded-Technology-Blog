@@ -16,7 +16,7 @@
 
 # III. Decoder Data Stream Interface
 ## 3.1 decode_put_packet
-![decode_put_packet](https://github.com/ArmSoM/Embedded-Technology-Blog/tree/main/RK3588%20from%20beginner%20to%20proficient/RK3588%20codec/image/decode_put_packet.png)
+![decode_put_packet](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/RK3588%20from%20beginner%20to%20proficient/RK3588%20codec/image/decode_put_packet.png)
 
 Input stream form: framed and non-framed  
 MPP input is bare streams without encapsulation information. Bare stream input has two forms:  
@@ -52,7 +52,7 @@ MPP input is bare streams without encapsulation information. Bare stream input h
 
 
 #  3.2 decode_get_frame 
-![decode_get_frame](https://github.com/ArmSoM/Embedded-Technology-Blog/tree/main/RK3588%20from%20beginner%20to%20proficient/RK3588%20codec/image/decode_get_framet.png)
+![decode_get_frame](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/RK3588%20from%20beginner%20to%20proficient/RK3588%20codec/image/decode_get_frame.png)
 ## 3.3 Provide decoder sufficient memory space to save pixel data  
 When decoding, <font color="red" size="3">decoder needs to get memory space to save output image pixel data.</font> Users need to provide decoder sufficient size. This space size requirement is calculated inside MPP decoder based on different chip platforms and video formats. The calculated memory requirement is provided to users via <font color="red" size="3">buf_size member variable of MppFrame</font>. <font color="red" size="3">Users need to allocate memory according to buf_size</font> to meet decoder requirement.
 
