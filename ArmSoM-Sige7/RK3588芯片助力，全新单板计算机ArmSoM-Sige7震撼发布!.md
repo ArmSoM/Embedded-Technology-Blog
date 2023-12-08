@@ -4,7 +4,7 @@
 
 Sige7 - 连接创新，无限可能
 
-![sige7](sige7.png)
+![sige7](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7.png)
 
 ## 1. RK3588芯片的强大性能
 
@@ -12,7 +12,7 @@ Sige7 - 连接创新，无限可能
 
 如下 RK3588 CPU Benchmark 实测数据
 
-![RK3588 CPU Benchmark](RK3588 CPU Benchmark.png)
+![RK3588 CPU Benchmark](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/RK3588%20CPU%20Benchmark.png)
 
 超强计算性能, 多核算力超过Core I3
 
@@ -24,12 +24,12 @@ Sige7 - 连接创新，无限可能
 
 ArmSoM-Sige7: AI+8K+感知+连接+显示，打造下一代旗舰AIOT平台
 
-![Sige7-AIOT](Sige7-AIOT.png)
+![Sige7-AIOT](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Sige7-AIOT.png)
 
 ### 2.1. Sige7（RK3588）6TOPS 算力
 
 Sige7 有6TOPS算力， 可支持 INT4/INT8/INT16/FP16 混合运算，其强大的兼容性，可以轻松转换基于TensorFlow / MXNet/PyTorch/Caffe 等一系列框架的网络模型。
-![Sige7-RK3588-NPU](Sige7-RK3588-NPU.png)
+![Sige7-RK3588-NPU](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Sige7-RK3588-NPU.png)
 
 算力足够支持嵌入式系统，如智能相机、智能家居设备和自动驾驶汽车中的实时图像处理和分析。应对一些轻量级的AI任务，例如语音识别、图像识别和物体检测。
 
@@ -40,12 +40,12 @@ Sige7支持
 * 硬编码：8K@30fps H.265 / H.264
 8K 编码 +  8K解码:  更多内容， 更多细节，带来极致的视觉享受。
 
-![Sige7 （RK3588）8K](Sige7-8K.png)
+![Sige7 （RK3588）8K](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Sige7-8K.png)
 
 ### 2.3. Sige7 多样丰富的接口
 
 Sige7同时可作为RK3588开发板
-![Sige7-layout](Sige7-layout.png)
+![Sige7-layout](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Sige7-layout.png)
 * **多样且通用**： 考虑到不同类型的外设和传感器的连接需求，提供丰富的接口类型，包括数字输入输出、模拟输入输出、通信接口（如UART、SPI、I2C）、USB等，满足各种应用场景的需求。
 
 * **易用**： 清晰的标识、颜色区分、物理形状等方面的设计可以降低用户的误操作，提高开发效率。
@@ -59,7 +59,7 @@ Sige7作为一款嵌入式开发套件，合理设计的接口平衡了多个方
 ### 2.4. Sige7 各类OS完成基础适配
 
 Sige7 适配了多种不同的系统，使得开发者能够在不同的开发环境中工作，这种灵活性有助于满足不同项目和应用的需求。
-![Sige7-OS](Sige7-OS.png)
+![Sige7-OS](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Sige7-OS.png)
 
 
 ## 精心设计的硬件和外观
