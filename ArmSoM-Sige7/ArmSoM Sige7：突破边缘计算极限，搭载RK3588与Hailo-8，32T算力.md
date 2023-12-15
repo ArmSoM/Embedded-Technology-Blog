@@ -30,7 +30,7 @@ Sige7的性能已在各行业得到验证，客户的反馈也非常积极。高
 
 Hailo-8 vs. Xavier NX & Orin Nano 4GB/8GB
 
-![Hailo-8-vs-orin-nano](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Hailo-8-vs-orin-nano.jpeg)
+![Hailo-8-vs-orin-nano](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Hailo-8-vs-orin-nano.jpg)
 
 ### 2. 更小的尺寸，更便宜的价格，类似的性能
 
@@ -38,7 +38,7 @@ Sige7尺寸92mm × 62mm，比 Jetson Nano 开发者套件的100mm x 79mm更加�
 
 Sige7的价格几乎是 Jetson Nano 的一半。
 
-![sige7-orinNano-vs](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7-orinNano-vs.jpeg)
+![sige7-orinNano-vs](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7-orinNano-vs.jpg)
 
 ### 3. 实测案例演示
 
