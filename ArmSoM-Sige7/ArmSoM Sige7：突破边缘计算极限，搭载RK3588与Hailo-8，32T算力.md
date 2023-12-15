@@ -2,7 +2,7 @@
 
 ArmSoM激动地宣布，我们的最新产品Sige7已成功搭载RK3588处理器，利用PCIe外接Hailo-8高算力开发板，实现了惊人的32T算力(RK3588 6TOPS + Hailo-8 26TOPS)。这一技术创新的里程碑将为各行业带来前所未有的计算性能和应用可能性。
 
-![sige7-hailo](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7-hailo.png)
+![sige7-hailo](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7-hailo.jpeg)
 
 ## 引言
 
@@ -30,7 +30,7 @@ Sige7的性能已在各行业得到验证，客户的反馈也非常积极。高
 
 Hailo-8 vs. Xavier NX & Orin Nano 4GB/8GB
 
-![Hailo-8-vs-orin-nano](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Hailo-8-vs-orin-nano.png)
+![Hailo-8-vs-orin-nano](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/Hailo-8-vs-orin-nano.jpeg)
 
 ### 2. 更小的尺寸，更便宜的价格，类似的性能
 
@@ -38,7 +38,7 @@ Sige7尺寸92mm × 62mm，比 Jetson Nano 开发者套件的100mm x 79mm更加�
 
 Sige7的价格几乎是 Jetson Nano 的一半。
 
-![sige7-orinNano-vs](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7-orinNano-vs.png)
+![sige7-orinNano-vs](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7-orinNano-vs.jpeg)
 
 ### 3. 实测案例演示
 
