@@ -1,6 +1,6 @@
 # ArmSoM Sige7替代Jetson-Orin-Nano、Xavier NX 搭载RK3588与Hailo-8，32T算力
 
-ArmSoM激动地宣布，我们的最新产品Sige7已成功搭载RK3588处理器，利用PCIe外接Hailo-8高算力开发板，实现了惊人的32T算力(RK3588 6TOPS + Hailo-8 26TOPS)。这一技术创新的里程碑将为各行业带来前所未有的计算性能和应用可能性。
+ArmSoM激动地宣布，我们的最新产品Sige7已成功搭载RK3588处理器，利用PCIe外接Hailo-8高算力开发板，实现了惊人的32TOPS算力(RK3588 6TOPS + Hailo-8 26TOPS)。这一技术创新的里程碑将为各行业带来前所未有的计算性能和应用可能性。
 
 ![sige7-hailo](https://github.com/ArmSoM/Embedded-Technology-Blog/blob/main/image/sige7/sige7-hailo.jpeg)
 
