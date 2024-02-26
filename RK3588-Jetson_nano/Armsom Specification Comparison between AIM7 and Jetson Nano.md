@@ -2,7 +2,7 @@
 
 The following table compares the key specifications between the Jetson Nano module represented by NVIDIA product and the AIM5 developed by ArmSoM based on Rockchip RK3588:
 
-| Specifications   | Jetson Nano (NVIDIA)                                         | ArmSoM-AIM5 (Rockchip)                                       |
+| Specifications   | Jetson Nano (NVIDIA)                                         | ArmSoM-AIM7(Rockchip)                                       |
 | ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | CPU Cores        | Quad-core ARM® Cortex®-A57 MPCore processor                  | Quad-core ARM® Cortex®-A76 + Quad-core ARM® Cortex®-A55      |
 | GPU Cores        | 128-core Maxwell GPU                                         | ARM Mali-G610 MP4                                            |
