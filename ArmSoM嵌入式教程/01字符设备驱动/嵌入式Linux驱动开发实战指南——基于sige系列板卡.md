@@ -90,7 +90,7 @@ typedef __kernel_dev_t               dev_t;
 
 以主设备号为cdev_map编号，使用哈希函数f(major)=major%255来计算组数下标(使用哈希函数是为了链表节点尽量平均分布在各个数组元素中，提高查询效率)； 主设备号冲突,则以次设备号为比较值来排序链表节点。 如下图所示，内核用struct cdev结构体来描述一个字符设备，并通过struct kobj_map类型的 散列表cdev_map来管理当前系统中的所有字符设备。
 
-![chrdev03](./chrdev03.png)
+![chrdev03](./chrdev03.jpg)
 
 cdev结构体(内核源码/include/linux/cdev.h)
 
@@ -581,7 +581,7 @@ const struct file_operations def_chr_fops = {
 
 最终，会执行def_chr_fops中的open函数，也就是chrdev_open函数，可以理解为一个字符设备的通用初始化函数，根据字符设备的设备号， 找到相应的字符设备，从而得到操作该设备的方法，代码实现如下。
 
-![./chrdev07.png](chrdev07.png)
+![./chrdev07.png](chrdev07.jpg)
 
 chrdev_open函数(内核源码/fs/char_dev.c)
 
